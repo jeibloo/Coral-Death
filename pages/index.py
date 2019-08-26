@@ -24,12 +24,12 @@ smaller size screens Bootstrap will allow the rows to wrap so as not to squash
 the content.
 """
 
-column1 = dbc.Col(
+aColumn1 = dbc.Col(
     [
         dcc.Markdown(
             """
 
-            ## Value Proposition
+            ## Why do they die?
 
             THIS APP SHALLE BENEFIT U. Don't emphasize the underlying technology.
 
@@ -41,18 +41,42 @@ column1 = dbc.Col(
         ),
         dcc.Link(dbc.Button('Call To Action', color='primary'), href='/predictions')
     ],
-    md=4,
+    md=6,
+)
+aColumn2 = dbc.Col(
+    [
+        dcc.Markdown(
+            """
+
+            ## Does this thing Run DOOM?
+
+            THIS APP SHALLE BENEFIT THU. Don't emphasize the underlying technology.
+
+            If you think you know, now you know.
+
+            """
+        ),
+    ],
+    md=6,
 )
 
+### Here is the data 3D cool thing
 gapminder = px.data.gapminder()
 fig = px.line_geo(gapminder.query("year==2007"),
                   locations="iso_alpha", color="continent",
                   projection="orthographic")
 
-column2 = dbc.Col(
+bColumn1 = dbc.Col(
     [
         dcc.Graph(figure=fig),
+    ],
+)
+layoutTop = dbc.Row([bColumn1])
+layout = html.Div([
+    dbc.Row([bColumn1]),
+    dbc.Row([
+        dbc.Col(aColumn1,width={'size':5,'offset':1}),
+        dbc.Col(aColumn2,width={'size':5,'offset':1})
+        ])
     ]
 )
-
-layout = dbc.Row([column1, column2])

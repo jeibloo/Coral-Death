@@ -12,8 +12,8 @@ from pages import index, predictions, insights, process
 """
 https://dash-bootstrap-components.opensource.faculty.ai/l/components/navbar
 
-NavbarSimple consists of a 'brand' on the left, to which you can attach a link 
-with brand_href, and a number nav items as its children. NavbarSimple will 
+NavbarSimple consists of a 'brand' on the left, to which you can attach a link
+with brand_href, and a number nav items as its children. NavbarSimple will
 collapse on smaller screens, and add a toggle for revealing navigation items.
 
 brand (string, optional): Brand text, to go top left of the navbar.
@@ -27,15 +27,15 @@ sticky (string, optional): Stick the navbar to the top or the bottom of the view
 
 navbar = dbc.NavbarSimple(
     brand='Coral Reef Killer',
-    brand_href='/', 
+    brand_href='/',
     children=[
-        dbc.NavItem(dcc.Link('Predictions', href='/predictions', className='nav-link')), 
-        dbc.NavItem(dcc.Link('Insights', href='/insights', className='nav-link')), 
-        dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link')), 
+        dbc.NavItem(dcc.Link('Predictions', href='/predictions', className='nav-link')),
+        dbc.NavItem(dcc.Link('Insights', href='/insights', className='nav-link')),
+        dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link')),
     ],
     sticky='top',
-    color='dark', 
-    light=False, #This is for the text 
+    color='dark',
+    light=False, #This is for the text
     dark=True
 )
 
@@ -44,27 +44,27 @@ footer = dbc.Container(
         dbc.Col(
             html.P(
                 [
-                    html.Span('Jason Nova', className='mr-2'), 
-                    html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:jasonnova@protonmail.com'), 
-                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/<you>/<repo>'), 
-                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/<you>/'), 
-                    html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/jsn404'), 
-                ], 
+                    html.Span('Jason Nova', className='mr-2'),
+                    html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:jasonnova@protonmail.com'),
+                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/<you>/<repo>'),
+                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/<you>/'),
+                    html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/jsn404'),
+                ],
                 className='lead'
             )
         )
     )
 )
 
-# For more explanation, see: 
+# For more explanation, see:
 # Plotly Dash User Guide, URL Routing and Multiple Apps
 # https://dash.plot.ly/urls
 
 app.layout = html.Div([
-    dcc.Location(id='url', refresh=False), 
-    navbar, 
+    dcc.Location(id='url', refresh=False),
+    navbar,
     dbc.Container(id='page-content', className='mt-4'), 
-    html.Hr(), 
+    html.Hr(),
     footer
 ])
 
