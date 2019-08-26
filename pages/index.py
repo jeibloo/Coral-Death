@@ -31,7 +31,7 @@ column1 = dbc.Col(
         
             ## Value Proposition
 
-            Emphasize how the app will benefit users. Don't emphasize the underlying technology.
+            THIS APP SHALLE BENEFIT U. Don't emphasize the underlying technology.
 
             ✅ RUN is a running app that adapts to your fitness levels and designs personalized workouts to help you improve your running.
 
