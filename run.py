@@ -31,7 +31,6 @@ navbar = dbc.NavbarSimple(
     children=[
         dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link')),
     ],
-    sticky='top',
     color=None,
     light=True, #This is for the text
     dark=False

@@ -29,14 +29,16 @@ aColumn1 = dbc.Col(
         dcc.Markdown(
             """
 
-            ## Predictions:
-            The coral is getting bleached
+            ## Predictions
+            ##### The coral is getting bleached
 
             Coral-Death is an online app that shows the devasting certainty of the death
             of our vital coral reefs to try and spurn action halt climate change.
             Coral-Death is an online app that shows the devasting certainty of the death
             of our vital coral reefs to try and spurn action halt climate change.
-            Coral-Death is an online app that shows the devasting certainty of the death
+            Coral-Death is an onl
+
+            ine app that shows the devasting certainty of the death
             of our vital coral reefs to try and spurn action halt climate change.
             Coral-Death is an online app that shows the devasting certainty of the death
             of our vital coral reefs to try and spurn action halt climate change.
@@ -54,8 +56,8 @@ aColumn2 = dbc.Col(
         dcc.Markdown(
             """
 
-            ## Insights:
-            #### Why do they die?
+            ## Insights
+            ##### Why do they die?
             *Does this thing also run DOOM?*
 
             If you think you know, now you know.
@@ -68,7 +70,7 @@ aColumn2 = dbc.Col(
             If you think you know, now you know.
             If you think you know, now you know.
             If you think you know, now you know.
-            If you think you know, now you know.
+
             If you think you know, now you know.
             If you think you know, now you know.
             If you think you know, now you know.

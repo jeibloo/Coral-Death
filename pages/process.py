@@ -15,39 +15,101 @@ column1 = dbc.Col(
 
             ---
 
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
-            First I blank.
+            #### Import, Cutting, Wranglin'
 
+            First I imported the excel file from Reefbase. Then I set the target
+            and switched all the known bleachings to 1 and the unknown bleachings
+            to zero.
+
+            ```
+            import pandas as pd
+            df = pd.read_excel('./dataset/CoralBleaching.xlsm')
+            target = 'BLEACHING_SEVERITY'
+            ```
+            When I looked up what `Severity Unknown` was in the relevant documentation
+            I discovered that in fact those reefs *were* bleached, they just didn't
+            know how severe.
+
+            Also had one value: Latitude->-10269 (which is an impossible number for
+            latitude) to convert manually.
+
+            ```
+            def wgle(df):
+                # Group by bleaching or not
+                df[target] = df[target].replace({
+                    'Low':1, 'HIGH':1, 'Medium':1, 'Severity Unknown':1,
+                    'No Bleaching':0})
+
+                # Get all features for ease-of-use
+                features, num_feats, cat_feats = bc.pantryFeatures(df)
+
+                # Drop columns with almost no values.
+                df = bc.diceUglyCols(df, features, percent=50)
+
+                # Special weird values
+                df['LAT'] = df['LAT'].replace({-10269:-10.269})
+
+                return df
+            ```
+
+            Then I wrangled the data as per the function up there and got a
+            `df.profile_report()` of the newly cleaned dataframe.
+
+            (I also made sure during many steps to make sure I kept track of how
+            many columns I was cutting or maniuplating. Especially when it got
+            to manipulating three dataframes at once)
+
+            ```
+            print("Cut down {} columns.".format(df.shape[1]-df_wrangle.shape[1]))
+            ```
+            ---
+            #### Splitting data
+
+            Decided to split the data by year so had to do so manually.
+
+            ```
+            # Split into Train Test & Val by year
+            test_mask = (df['YEAR'] > 1999)
+            vali_mask = ((df['YEAR'] > 1996) & (df['YEAR'] <= 1999))
+            trin_mask = (df['YEAR'] <= 1995)
+            # Use masks
+            test = df[test_mask].copy()
+            trin = df[trin_mask].copy()
+            vali = df[vali_mask].copy()
+            ```
+
+            Another assurance check to make sure all was well. Then I chopped
+            up the sets to isolate the targets and the features I wanted.
+
+            ```
+            ### Chop the sets up
+            features, _, _ = bc.pantryFeatures(trin)
+            X_train = trin[features].drop(target,axis=1)
+            y_train = trin[target]
+
+            X_test = test[features].drop(target,axis=1)
+            y_test = test[target]
+
+            X_vali = vali[features].drop(target,axis=1)
+            y_vali = vali[target]
+            ```
+            ---
+            #### Majority Class Baseline
+            Classification problems call for classification metrics.
+            ```
+            # Majority Class Baseline
+            bc.soupBaseModel(df, target, 1)
+            ```
+            And it gave me 76.1389% for bleached; 23.8611% for not-bleached.
+
+            ---
+            #### Fitting and Predicting
+            Made a pipeline to streamline
+            """
+        ),
+        dcc.Markdown(
+            """
+            ---
             """
         ),
 
