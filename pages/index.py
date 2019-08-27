@@ -48,7 +48,7 @@ aColumn1 = dbc.Col(
             Coral-Death is an online app that shows the devasting certainty of the death
             of our vital coral reefs to try and spurn action halt climate change.
             """
-        /
+        )
     ],
     md=10,
 )
