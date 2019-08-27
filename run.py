@@ -34,9 +34,9 @@ navbar = dbc.NavbarSimple(
         dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link')),
     ],
     sticky='top',
-    color='dark',
-    light=False, #This is for the text
-    dark=True
+    color=None,
+    light=True, #This is for the text
+    dark=False
 )
 
 footer = dbc.Container(
@@ -50,9 +50,10 @@ footer = dbc.Container(
                     html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/<you>/'),
                     html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/jsn404'),
                 ],
-                className='lead'
+                className='lead',
             )
-        )
+        ),
+        align='end'
     )
 )
 
@@ -63,7 +64,7 @@ footer = dbc.Container(
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     navbar,
-    dbc.Container(id='page-content', className='mt-4'), 
+    dbc.Container(id='page-content', className='mt-6'),
     html.Hr(),
     footer
 ])

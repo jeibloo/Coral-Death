@@ -41,7 +41,7 @@ aColumn1 = dbc.Col(
         ),
         dcc.Link(dbc.Button('Call To Action', color='primary'), href='/predictions')
     ],
-    md=6,
+    md=10,
 )
 aColumn2 = dbc.Col(
     [
@@ -57,21 +57,24 @@ aColumn2 = dbc.Col(
             """
         ),
     ],
-    md=6,
+    md=10,
 )
 
 ### Here is the data 3D cool thing
 gapminder = px.data.gapminder()
 fig = px.line_geo(gapminder.query("year==2007"),
                   locations="iso_alpha", color="continent",
-                  projection="orthographic")
+                  projection="orthographic",
+                  width=None,height=None).update_layout(
+                  autosize=True,height=1000,width=1000
+                  )
 
 bColumn1 = dbc.Col(
     [
         dcc.Graph(figure=fig),
     ],
 )
-layoutTop = dbc.Row([bColumn1])
+
 layout = html.Div([
     dbc.Row([bColumn1]),
     dbc.Row([
