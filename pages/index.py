@@ -34,6 +34,16 @@ aColumn1 = dbc.Col(
 
             Coral-Death is an online app that shows the devasting certainty of the death
             of our vital coral reefs to try and spurn action halt climate change.
+            Coral-Death is an online app that shows the devasting certainty of the death
+            of our vital coral reefs to try and spurn action halt climate change.
+            Coral-Death is an online app that shows the devasting certainty of the death
+            of our vital coral reefs to try and spurn action halt climate change.
+            Coral-Death is an online app that shows the devasting certainty of the death
+            of our vital coral reefs to try and spurn action halt climate change.
+            Coral-Death is an online app that shows the devasting certainty of the death
+            of our vital coral reefs to try and spurn action halt climate change.
+            Coral-Death is an online app that shows the devasting certainty of the death
+            of our vital coral reefs to try and spurn action halt climate change.
             """
         )
     ],
@@ -48,6 +58,27 @@ aColumn2 = dbc.Col(
             #### Why do they die?
             *Does this thing also run DOOM?*
 
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
+            If you think you know, now you know.
             If you think you know, now you know.
 
             """
@@ -73,7 +104,7 @@ bColumn1 = dbc.Col(
         dcc.Slider(
             id="year",
             min=1969,
-            max=2012,
+            max=2050,
             step=1,
             value=1999,
             className='mb-10',

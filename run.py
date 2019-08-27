@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output
 
 # Imports from this application
 from app import app, server
-from pages import index, insights, process
+from pages import index, process
 
 """
 https://dash-bootstrap-components.opensource.faculty.ai/l/components/navbar
@@ -53,7 +53,8 @@ footer = dbc.Container(
             )
         ),
         align='end'
-    )
+    ),
+    className='footer'
 )
 
 # For more explanation, see:
@@ -64,7 +65,6 @@ app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     navbar,
     dbc.Container(id='page-content', className='mt-6'),
-    html.Hr(),
     footer
 ])
 
@@ -73,10 +73,6 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/':
         return index.layout
-    elif pathname == '/predictions':
-        return predictions.layout
-    elif pathname == '/insights':
-        return insights.layout
     elif pathname == '/process':
         return process.layout
     else:

@@ -12,9 +12,13 @@
   font-size: 1.5rem;
 }
 
+.footer {
+  padding-top: 2rem;
+}
+
 .navbar-brand {
   text-decoration: none;
-  border-bottom: .15rem solid black;
+  border-bottom: 2rem solid black;
   margin-bottom: 1rem;
 }
 
