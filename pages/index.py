@@ -69,8 +69,24 @@ fig = px.line_geo(gapminder.query("year==2007"),
 bColumn1 = dbc.Col(
     [
         dcc.Graph(figure=fig),
+        html.Div(
+        dcc.Slider(
+            id="year",
+            min=1969,
+            max=2012,
+            step=1,
+            value=1999,
+            className='mb-10',
+            updatemode='drag',
+        ),id='slider-output-container')
     ],
 )
+
+@app.callback(
+    dash.dependencies.Output('year', 'children'),
+    [dash.dependencies.Input('year', 'value')])
+def update_output(value):
+    return html.Div("{}".format(value), id='output-text')
 
 layout = html.Div([
     dbc.Row([bColumn1]),

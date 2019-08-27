@@ -19,5 +19,23 @@
 }
 
 a {
-  color: #515151;  
+  color: #515151;
+}
+
+.rc-slider-track {
+  background-color: #C28383;
+}
+.rc-slider-handle {
+  border: solid 2px #C28383;
+}
+
+#slider-output-container {
+  width: 30rem;
+  margin-left: 22.5rem;
+  margin-bottom: 5rem;
+}
+
+#output-text {
+  padding-top: 1rem;
+  text-align: center;
 }
