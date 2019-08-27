@@ -48,7 +48,7 @@ aColumn1 = dbc.Col(
             Coral-Death is an online app that shows the devasting certainty of the death
             of our vital coral reefs to try and spurn action halt climate change.
             """
-        )
+        /
     ],
     md=10,
 )
@@ -56,34 +56,27 @@ aColumn2 = dbc.Col(
     [
         dcc.Markdown(
             """
-
             ## Insights
-            ##### Why do they die?
-            *Does this thing also run DOOM?*
+            ##### What was unusual? Secrets in the data?
 
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
+            When first discovering this dataset I'd assumed the answer to many
+            of my questions would not be clear cut. After all the dataset did
+            not have good values for water temperature near the affected
+            reefs, nor did it have important information such as the recovery of
+            the reef in question since the last checkup. But nontheless I had chosen
+            a dataset and intended to stick with it.
 
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-            If you think you know, now you know.
-
+            The answers are still not entirely clear, even with extensive outside
+            research. But what I do know is, when trying to train and model my data
+            I was getting extremely high scores all the time, and only when I would
+            train my data starting from the early 90's and back is when the Predictions
+            became a hair less than perfect. Of course the very fact that the coral reefs
+            were and are generally being recorded is the obvious signs of bleaching,
+            white and brittle, lifeless coral - this is easy to spot.
+            But putting that aside, my model seemed to see an obvious trend
+            in this specific dataset that says that the coral is bleaching,
+            and will continue to bleach until proabably most of the shallow water coral that
+            is non-resistant to heat is plain dead.
             """
         ),
         dcc.Link(dbc.Button('Learn More about the Process', color='secondary'), href='/process')
