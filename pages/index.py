@@ -92,7 +92,8 @@ aColumn2 = dbc.Col(
 )
 
 ### Here is the data 3D cool thing
-coral = pd.read_csv("./notebooks/dataset/CoralBleachingClean.csv",index_col='ID')
+#coral = pd.read_csv("../notebooks/dataset/CoralBleachingClean.csv",index_col='ID')
+coral = pd.read_csv("./CoralBleachingClean.csv",index_col='ID')
 fig = px.scatter_geo(coral,
             lat='LAT',lon='LON',
             color="BLEACHING_SEVERITY",
