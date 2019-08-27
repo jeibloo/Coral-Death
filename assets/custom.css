@@ -7,3 +7,17 @@
 .js-plotly-plot {
   margin-left: 6rem;
 }
+
+.lead {
+  font-size: 1.5rem;
+}
+
+.navbar-brand {
+  text-decoration: none;
+  border-bottom: .15rem solid black;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: #515151;  
+}

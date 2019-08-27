@@ -29,7 +29,6 @@ navbar = dbc.NavbarSimple(
     brand='Dead Coral',
     brand_href='/',
     children=[
-        dbc.NavItem(dcc.Link('Insights', href='/insights', className='nav-link')),
         dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link')),
     ],
     sticky='top',
@@ -43,11 +42,12 @@ footer = dbc.Container(
         dbc.Col(
             html.P(
                 [
-                    html.Span('Jason Nova', className='mr-2'),
-                    html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:jasonnova@protonmail.com'),
-                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/<you>/<repo>'),
-                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/<you>/'),
-                    html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/jsn404'),
+                    html.Span('Jason Nova', className='mr-4'),
+                    html.A(html.I(className='fas fa-envelope-square mr-3'), href='mailto:jasonnova@protonmail.com'),
+                    html.A(html.I(className='fab fa-github-square mr-3'), href='https://github.com/jeibloo/coral-death'),
+                    html.A(html.I(className='fab fa-linkedin mr-3'), href='https://www.linkedin.com/in/jason-nova/'),
+                    html.A(html.I(className='fab fa-twitter-square mr-3'), href='https://twitter.com/jsn404'),
+                    html.A(html.I(className='fas fa-paw mr-3'), href='https://www.worldwildlife.org/initiatives/oceans'),
                 ],
                 className='lead',
             )

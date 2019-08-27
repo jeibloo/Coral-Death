@@ -29,17 +29,13 @@ aColumn1 = dbc.Col(
         dcc.Markdown(
             """
 
-            ## Why do they die? Predictions:
+            ## Predictions:
+            The coral is getting bleached
 
-            THIS APP SHALLE BENEFIT U. Don't emphasize the underlying technology.
-
-            ✅ RUN is a running app that adapts to your fitness levels and designs personalized workouts to help you improve your running.
-
-            ❌ RUN is the only intelligent running app that uses sophisticated deep neural net machine learning to make your run smarter because we believe in ML driven workouts.
-
+            Coral-Death is an online app that shows the devasting certainty of the death
+            of our vital coral reefs to try and spurn action halt climate change.
             """
-        )#,
-        #dcc.Link(dbc.Button('Call To Action', color='primary'), href='/predictions')
+        )
     ],
     md=10,
 )
@@ -48,15 +44,15 @@ aColumn2 = dbc.Col(
         dcc.Markdown(
             """
 
-            ## Insights
+            ## Insights:
+            #### Why do they die?
             *Does this thing also run DOOM?*
-
-            THIS APP SHALLE BENEFIT THU. Don't emphasize the underlying technology.
 
             If you think you know, now you know.
 
             """
         ),
+        dcc.Link(dbc.Button('Learn More about the Process', color='secondary'), href='/process')
     ],
     md=10,
 )
@@ -67,7 +63,7 @@ fig = px.line_geo(gapminder.query("year==2007"),
                   locations="iso_alpha", color="continent",
                   projection="orthographic",
                   width=None,height=None).update_layout(
-                  autosize=True,height=750,width=1000
+                  autosize=True,height=800,width=1000
                   )
 
 bColumn1 = dbc.Col(
