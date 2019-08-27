@@ -29,7 +29,7 @@ aColumn1 = dbc.Col(
         dcc.Markdown(
             """
 
-            ## Why do they die?
+            ## Why do they die? Predictions:
 
             THIS APP SHALLE BENEFIT U. Don't emphasize the underlying technology.
 
@@ -38,8 +38,8 @@ aColumn1 = dbc.Col(
             ❌ RUN is the only intelligent running app that uses sophisticated deep neural net machine learning to make your run smarter because we believe in ML driven workouts.
 
             """
-        ),
-        dcc.Link(dbc.Button('Call To Action', color='primary'), href='/predictions')
+        )#,
+        #dcc.Link(dbc.Button('Call To Action', color='primary'), href='/predictions')
     ],
     md=10,
 )
@@ -48,7 +48,8 @@ aColumn2 = dbc.Col(
         dcc.Markdown(
             """
 
-            ## Does this thing Run DOOM?
+            ## Insights
+            *Does this thing also run DOOM?*
 
             THIS APP SHALLE BENEFIT THU. Don't emphasize the underlying technology.
 
@@ -66,7 +67,7 @@ fig = px.line_geo(gapminder.query("year==2007"),
                   locations="iso_alpha", color="continent",
                   projection="orthographic",
                   width=None,height=None).update_layout(
-                  autosize=True,height=1000,width=1000
+                  autosize=True,height=750,width=1000
                   )
 
 bColumn1 = dbc.Col(

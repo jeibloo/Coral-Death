@@ -4,3 +4,6 @@
 .nav-link {
   font-size: 1.25rem;
 }
+.js-plotly-plot {
+  margin-left: 6rem;
+}
