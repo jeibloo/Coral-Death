@@ -99,7 +99,7 @@ fig = px.scatter_geo(coral,
             color="BLEACHING_SEVERITY",
             projection="orthographic",hover_name='LOCATION',
             animation_frame='YEAR', range_color=(0,1),
-            labels={'BLEACHING_SEVERITY':'Bleached or Not'},
+            labels={'BLEACHING_SEVERITY':'Currently Bleaching or Not'},
             width=None,height=None).update_layout(
                   autosize=True,height=800,width=1000
                   )

@@ -26,7 +26,7 @@ sticky (string, optional): Stick the navbar to the top or the bottom of the view
 """
 
 navbar = dbc.NavbarSimple(
-    brand='Dead Coral',
+    brand='Coral Death',
     brand_href='/',
     children=[
         dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link')),
