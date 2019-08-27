@@ -54,7 +54,12 @@ column1 = dbc.Col(
 
             Then I wrangled the data as per the function up there and got a
             `df.profile_report()` of the newly cleaned dataframe.
-
+            """),
+        html.Img(src='assets/heatmap_wrangled.png',className='img-fluid'),
+        dcc.Markdown(
+            """
+            A few correlations between for example `MONTH` and `BLEACHING_SEVERITY`.
+            
             (I also made sure during many steps to make sure I kept track of how
             many columns I was cutting or maniuplating. Especially when it got
             to manipulating three dataframes at once)
@@ -62,6 +67,13 @@ column1 = dbc.Col(
             ```
             print("Cut down {} columns.".format(df.shape[1]-df_wrangle.shape[1]))
             ```
+            The longitudes and latitudes now look appropriate, and it matches up
+            with intuition that the majority of the reefs lie between the graphs'
+            areas.
+            """),
+        html.Img(src='assets/longLat.png',className='img-fluid'),
+        dcc.Markdown(
+            """
             ---
             #### Splitting data
 
