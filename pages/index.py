@@ -5,6 +5,9 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.express as px
 import pandas as pd
+# Get pipey!
+from joblib import load
+pipey = load('assets/pipey.joblib')
 
 from app import app
 
@@ -25,6 +28,29 @@ smaller size screens Bootstrap will allow the rows to wrap so as not to squash
 the content.
 """
 
+### Here is the data 3D cool thing
+#coral = pd.read_csv("../notebooks/dataset/CoralBleachingClean.csv",index_col='ID')
+coral = pd.read_csv("./CoralBleachingClean.csv",index_col='ID')
+
+figbot = px.scatter_geo(coral,
+            lat='LAT',lon='LON',
+            color="BLEACHING_SEVERITY",
+            color_continuous_scale=px.colors.sequential.Jet,
+            projection="natural earth",
+            width=None,height=None)
+
+@app.callback(
+    Output('prediction-content','children'),
+    [Input('COUNTRY','value'), Input('YEAR','value')]
+)
+def predict(COUNTRY, YEAR):
+    df = pd.DataFrame(
+        columns=['COUNTRY','YEAR'],
+        data = [[YEAR,COUNTRY]]
+    )
+    y_pred = pipey.predict(df)[0]
+    return f'{y_pred:.0f} bleached?'
+
 aColumn1 = dbc.Col(
     [
         dcc.Markdown(
@@ -38,19 +64,20 @@ aColumn1 = dbc.Col(
             Coral-Death is an online app that shows the devasting certainty of the death
             of our vital coral reefs to try and spurn action halt climate change.
             Coral-Death is an onl
-
-            ine app that shows the devasting certainty of the death
-            of our vital coral reefs to try and spurn action halt climate change.
-            Coral-Death is an online app that shows the devasting certainty of the death
-            of our vital coral reefs to try and spurn action halt climate change.
-            Coral-Death is an online app that shows the devasting certainty of the death
-            of our vital coral reefs to try and spurn action halt climate change.
-            Coral-Death is an online app that shows the devasting certainty of the death
-            of our vital coral reefs to try and spurn action halt climate change.
             """
-        )
+        ),
     ],
     md=10,
+)
+
+xColumn1 = dbc.Col(
+    [
+        dcc.Markdown(
+            """
+            ### TEST
+            """
+        ),
+    ]
 )
 aColumn2 = dbc.Col(
     [
@@ -84,14 +111,12 @@ aColumn2 = dbc.Col(
     md=10,
 )
 
-### Here is the data 3D cool thing
-#coral = pd.read_csv("../notebooks/dataset/CoralBleachingClean.csv",index_col='ID')
-coral = pd.read_csv("./CoralBleachingClean.csv",index_col='ID')
 fig = px.scatter_geo(coral,
             lat='LAT',lon='LON',
             color="BLEACHING_SEVERITY",
             projection="orthographic",hover_name='LOCATION',
             animation_frame='YEAR', range_color=(0,1),
+            color_continuous_scale=px.colors.diverging.Portland,
             labels={'BLEACHING_SEVERITY':'Currently Bleaching or Not'},
             width=None,height=None).update_layout(
                   autosize=True,height=800,width=1000
@@ -100,6 +125,19 @@ fig = px.scatter_geo(coral,
 bColumn1 = dbc.Col(
     [
         dcc.Graph(figure=fig),
+    ],
+)
+
+cColumn1 = dbc.Col(
+    [
+        dcc.Slider(
+            id='YEAR',
+            min=2013,
+            max=2100,
+            step=5,
+            value=2013
+        ),
+        dcc.Graph(id='SmallWorld',figure=figbot),
     ],
 )
 
@@ -126,8 +164,10 @@ def update_output(value):
 layout = html.Div([
     dbc.Row([bColumn1]),
     dbc.Row([
-        dbc.Col(aColumn1,width={'size':5,'offset':1}),
+        dbc.Col(aColumn1,width={'size':5,'offset':1},
+        ),
         dbc.Col(aColumn2,width={'size':5,'offset':1})
-        ])
+        ]),
+    dbc.Row([cColumn1]),
     ]
 )

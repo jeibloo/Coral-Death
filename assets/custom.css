@@ -13,7 +13,6 @@
 }
 
 .footer {
-  padding-top: 2rem;
 }
 
 .navbar-brand {
@@ -31,6 +30,10 @@ a {
 }
 .rc-slider-handle {
   border: solid 2px #C28383;
+}
+
+#SmallWorld {
+  margin: 0;
 }
 
 #slider-output-container {
