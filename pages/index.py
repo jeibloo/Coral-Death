@@ -58,6 +58,7 @@ fig = px.scatter_geo(coral,
             animation_frame='YEAR', range_color=(0,4),
             color_continuous_scale=px.colors.diverging.Portland,
             labels={'BLEACHING_SEVERITY':'Level of Bleaching'},
+            #center={'lat':9.934739,'lon':-84.087502}, # Unfortunately this doesn't work right
             width=None,height=None).update_layout(
                   autosize=True,height=800,width=1000
                   )
@@ -104,13 +105,15 @@ aColumn2 = dbc.Col(
             the reef in question since the last checkup. But nontheless I had chosen
             a dataset and intended to stick with it.
 
-            The answers are still not entirely clear, even with extensive outside
-            research. But what I do know is, when trying to train and model my data
-            I was getting extremely high scores all the time, and only when I would
-            train my data starting from the early 90's and back is when the Predictions
-            became a hair less than perfect. Of course the very fact that the coral reefs
-            were and are generally being recorded is the obvious signs of bleaching,
-            white and brittle, lifeless coral - this is easy to spot.
+            After much thought my original plan of detecting if a coral group
+            was bleaching or not was not going to work. The reason being that since
+            the data was so overwhelming in favour of almost all of the coral dying,
+            my ROC AUC scores were very close to perfect the entire time.
+            Only when I would train my data starting from the early 90's and back
+            is when the Predictions became a hair less than perfect. I was aware that
+            the fact the coral was being recorded could be a sign of bleaching
+            (since the contrast between the bright alive coral and white and lifeless kind would
+            be easy to spot before most knew about this great bleaching) therefore skewing my earlier decade data.
             But putting that aside, my model seemed to see an obvious trend
             in this specific dataset that says that the coral is bleaching,
             and will continue to bleach until proabably most of the shallow water coral that

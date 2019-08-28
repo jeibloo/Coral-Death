@@ -46,6 +46,9 @@ column1 = dbc.Col(
                 # Drop columns with almost no values.
                 df = bc.diceUglyCols(df, features, percent=50)
 
+                # Drop severity code cause that's obviously a leakage
+                df = df.drop('SEVERITY_CODE',axis=1)
+
                 # Special weird values
                 df['LAT'] = df['LAT'].replace({-10269:-10.269})
 
@@ -59,10 +62,10 @@ column1 = dbc.Col(
         dcc.Markdown(
             """
             A few correlations between for example `MONTH` and `BLEACHING_SEVERITY`.
-            
+
             (I also made sure during many steps to make sure I kept track of how
-            many columns I was cutting or maniuplating. Especially when it got
-            to manipulating three dataframes at once)
+            many columns I was cutting or manipulating. I also cut `BLEACHING_SEVERITY`
+            of course since that would leak if it was bleached or not.)
 
             ```
             print("Cut down {} columns.".format(df.shape[1]-df_wrangle.shape[1]))
@@ -80,7 +83,8 @@ column1 = dbc.Col(
             Decided to split the data by year so had to do so manually.
 
             ```
-            # Split into Train Test & Val by year
+            # Split into Train Test & Val by year. Why I didn't use TimeSeriesSplit
+            # the world may never know.
             test_mask = (df['YEAR'] > 1999)
             vali_mask = ((df['YEAR'] > 1996) & (df['YEAR'] <= 1999))
             trin_mask = (df['YEAR'] <= 1995)
@@ -109,18 +113,84 @@ column1 = dbc.Col(
             #### Majority Class Baseline
             Classification problems call for classification metrics.
             ```
-            # Majority Class Baseline
+            # Majority Class Baseline for just if the coral is bleached or not.
             bc.soupBaseModel(df, target, 1)
             ```
             And it gave me 76.1389% for bleached; 23.8611% for not-bleached.
+            ```
+            # Majority Class Baseline for the degree of bleaching for Coral.
+            bc.soupBaseModel(df, target, 1)
+            ```
+            Zero is no bleaching, four is worst.
+
+            0: 23.8611%
+
+            1: 19.4023%
+
+            2: 23.0856%
+
+            3: 14.7173%
+
+            4: 18.9338%
+
+            Not looking good for the world of coral.
 
             ---
             #### Fitting and Predicting
             Made a pipeline to streamline
+            ```
+            pipey = make_pipeline(
+                # Encode values ordinally
+                ce.OrdinalEncoder(),
+                # Impute NaNs
+                SimpleImputer(),
+                RandomForestClassifier(
+                    n_estimators=500,
+                    class_weight='balanced',
+                    n_jobs=-1,
+                    random_state=4
+                )
+            )
+            ```
+            Then I use this pipeline to fit on the training set.
+            ```
+            pipey.fit(X_train, y_train);
+            ```
+            Using cross-validation I see how good of an accuracy I can get.
+            ```
+            cross_val_score(pipey, X_train, y_train, cv=20, scoring='accuracy')
+            ```
+            The highest I got was 61%.
+
+            ---
+            #### Examining the Data
+
+            If I take a look at a partial dependence plot of a single feature in
+            isolation (latitude), I can see that there was an effect on the
+            outcome.
             """
         ),
+        html.Img(src='assets/pdp_lat.png',className='img-fluid'),
         dcc.Markdown(
             """
+            And for a Shapley Value Force plot for individual outcomes.
+            """
+        ),
+        html.Img(src='assets/shapley0.png',className='img-fluid'),
+        html.Img(src='assets/shapley1.png',className='img-fluid'),
+        html.Img(src='assets/shapley2.png',className='img-fluid'),
+        dcc.Markdown(
+            """
+            ---
+            Interestingly enough, for almost every outcome the only major determining
+            factor seemed to be the longitude and latitude (with a few caveats for
+            country and sometimes source).
+
+            *Unfortunately* I think
+            this might mean that the majority of the predictive power comes from outside
+            of our dataset. If I were to posit where I could find it, I believe that
+            the general heat content of the ocean would be the biggest indicator. But
+            all-in-all this was a interesting experiment to see what I could find out.
             ---
             """
         ),
