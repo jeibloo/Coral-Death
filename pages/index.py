@@ -43,6 +43,7 @@ figbot = px.scatter_geo(coral,
     Output('prediction-content','children'),
     [Input('COUNTRY','value'), Input('YEAR','value')]
 )
+
 def predict(COUNTRY, YEAR):
     df = pd.DataFrame(
         columns=['COUNTRY','YEAR'],
@@ -50,6 +51,8 @@ def predict(COUNTRY, YEAR):
     )
     y_pred = pipey.predict(df)[0]
     return f'{y_pred:.0f} bleached?'
+def inputTest(input_value):
+    return '{}'.format(input_value)
 
 fig = px.scatter_geo(coral,
             lat='LAT',lon='LON',
@@ -63,34 +66,36 @@ fig = px.scatter_geo(coral,
                   autosize=True,height=800,width=1000
                   )
 
+### Leftmost columns
 aColumn1 = dbc.Col(
     [
         dcc.Markdown(
             """
 
             ## Predictions
-            ##### The coral is getting bleached
+            ##### No more shallow coral.
 
-            Coral-Death is an online app that shows the devasting certainty of the death
-            of our vital coral reefs to try and spurn action halt climate change.
-            Coral-Death is an online app that shows the devasting certainty of the death
-            of our vital coral reefs to try and spurn action halt climate change.
-            Coral-Death is an onl
+            Coral-Death is an online app that shows the devastating dieout
+            of our vital coral reefs. It's purpose is to try and warn what the data
+            has shown me, that regardless of where you are any coral reefs near you
+            seems likely to perish.
             """
+        ),
+        # Here we're going to do the prediction stuff.
+        html.Div([
+            dcc.Slider(
+                id='YEAR',
+                min=2013,
+                max=2100,
+                step=5,
+                value=2013),
+            ], className='jumanji',
         ),
     ],
     md=10,
 )
 
-xColumn1 = dbc.Col(
-    [
-        dcc.Markdown(
-            """
-            ### TEST
-            """
-        ),
-    ]
-)
+### Rightmost column
 aColumn2 = dbc.Col(
     [
         dcc.Markdown(
@@ -110,15 +115,16 @@ aColumn2 = dbc.Col(
             the data was so overwhelming in favour of almost all of the coral dying,
             my ROC AUC scores were very close to perfect the entire time.
             Only when I would train my data starting from the early 90's and back
-            is when the Predictions became a hair less than perfect. I was aware that
-            the fact the coral was being recorded could be a sign of bleaching
+            is when the Predictions became a hair less than perfect.
+
+            I was aware of the fact the coral was being recorded could be a sign of bleaching
             (since the contrast between the bright alive coral and white and lifeless kind would
             be easy to spot before most knew about this great bleaching) therefore skewing my earlier decade data.
             But putting that aside, my model seemed to see an obvious trend
             in this specific dataset that says that the coral is bleaching,
             and will continue to bleach until proabably most of the shallow water coral that
-            is non-resistant to heat is plain dead.
-            
+            is non-resistant to heat is dead.
+
             """
         ),
         dcc.Link(dbc.Button('Learn More about the Process', color='secondary'), href='/process')
@@ -126,22 +132,10 @@ aColumn2 = dbc.Col(
     md=10,
 )
 
+### Even though it says bColumn it's the big globe on top. lol
 bColumn1 = dbc.Col(
     [
         dcc.Graph(figure=fig),
-    ],
-)
-
-cColumn1 = dbc.Col(
-    [
-        '''dcc.Slider(
-            id='YEAR',
-            min=2013,
-            max=2100,
-            step=5,
-            value=2013
-        ),
-        dcc.Graph(id='SmallWorld',figure=figbot),'''
     ],
 )
 
@@ -172,6 +166,5 @@ layout = html.Div([
         ),
         dbc.Col(aColumn2,width={'size':5,'offset':1})
         ]),
-    dbc.Row([cColumn1]),
     ]
 )

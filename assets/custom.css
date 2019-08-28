@@ -18,8 +18,8 @@
 }
 
 .name {
-  border: .25rem solid grey;
-  padding-left: .5rem; padding-right: .5rem; padding-bottom: .25rem;
+  border-right: .1rem solid grey;
+  padding-left: .5rem; padding-right: 1rem; padding-bottom: .25rem;
 }
 
 .navbar-brand {
