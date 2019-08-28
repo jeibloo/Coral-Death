@@ -42,11 +42,11 @@ footer = dbc.Container(
             html.P(
                 [
                     html.Span('Jason Nova', className='mr-4 name'),
+                    html.A(html.I(className='fas fa-paw mr-3'), href='https://www.worldwildlife.org/initiatives/oceans'),
                     html.A(html.I(className='fas fa-envelope-square mr-3'), href='mailto:jasonnova@protonmail.com'),
                     html.A(html.I(className='fab fa-github-square mr-3'), href='https://github.com/jeibloo/coral-death'),
                     html.A(html.I(className='fab fa-linkedin mr-3'), href='https://www.linkedin.com/in/jason-nova/'),
                     html.A(html.I(className='fab fa-twitter-square mr-3'), href='https://twitter.com/jsn404'),
-                    html.A(html.I(className='fas fa-paw mr-3'), href='https://www.worldwildlife.org/initiatives/oceans'),
                 ],
                 className='lead',
             )

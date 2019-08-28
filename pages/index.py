@@ -39,11 +39,11 @@ figbot = px.scatter_geo(coral,
             projection="natural earth",
             width=None,height=None)
 
+'''
+#### BEGINNING OF REAL
 @app.callback(
     Output('prediction-content','children'),
-    [Input('COUNTRY','value'), Input('YEAR','value')]
-)
-
+    [Input('COUNTRY','value'), Input('YEAR','value')])
 def predict(COUNTRY, YEAR):
     df = pd.DataFrame(
         columns=['COUNTRY','YEAR'],
@@ -51,8 +51,16 @@ def predict(COUNTRY, YEAR):
     )
     y_pred = pipey.predict(df)[0]
     return f'{y_pred:.0f} bleached?'
+#### END OF REAL
+'''
+#### BEGINNING OF TEST
+### APP CALLBACK MUST BE IN BEGINNING BEFORE FUNCTION
+@app.callback(
+    Output(component_id='my-div', component_property='children'),
+    [Input(component_id='my-id', component_property='value')])
 def inputTest(input_value):
     return '{}'.format(input_value)
+#### END OF TEST
 
 fig = px.scatter_geo(coral,
             lat='LAT',lon='LON',
@@ -83,6 +91,7 @@ aColumn1 = dbc.Col(
         ),
         # Here we're going to do the prediction stuff.
         html.Div([
+            dcc.Input(id='my-id', value='', type='text'),
             dcc.Slider(
                 id='YEAR',
                 min=2013,
@@ -91,6 +100,9 @@ aColumn1 = dbc.Col(
                 value=2013),
             ], className='jumanji',
         ),
+        html.Div([
+
+        ],id='my-div')
     ],
     md=10,
 )
