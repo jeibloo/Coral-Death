@@ -191,7 +191,7 @@ column1 = dbc.Col(
             of our dataset. If I were to posit where I could find it, I believe that
             the general heat content of the ocean would be the biggest indicator. But
             all-in-all this was a interesting experiment to see what I could find out.
-            ---
+            
             """
         ),
 

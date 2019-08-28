@@ -13,7 +13,13 @@
 }
 
 .footer {
+  padding-top: 2rem;
   margin-bottom: 1rem;
+}
+
+.name {
+  border: .25rem solid grey;
+  padding-left: .5rem; padding-right: .5rem; padding-bottom: .25rem;
 }
 
 .navbar-brand {

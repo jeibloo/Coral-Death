@@ -118,6 +118,7 @@ aColumn2 = dbc.Col(
             in this specific dataset that says that the coral is bleaching,
             and will continue to bleach until proabably most of the shallow water coral that
             is non-resistant to heat is plain dead.
+            
             """
         ),
         dcc.Link(dbc.Button('Learn More about the Process', color='secondary'), href='/process')
