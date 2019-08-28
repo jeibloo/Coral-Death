@@ -30,12 +30,12 @@ the content.
 
 ### Here is the data 3D cool thing
 #coral = pd.read_csv("../notebooks/dataset/CoralBleachingClean.csv",index_col='ID')
-coral = pd.read_csv("./CoralBleachingClean.csv",index_col='ID')
+coral = pd.read_csv("notebooks/CoralBleachingClean.csv",index_col='ID')
 
 figbot = px.scatter_geo(coral,
             lat='LAT',lon='LON',
             color="BLEACHING_SEVERITY",
-            color_continuous_scale=px.colors.sequential.Jet,
+            color_continuous_scale=px.colors.diverging.Portland,
             projection="natural earth",
             width=None,height=None)
 
@@ -50,6 +50,17 @@ def predict(COUNTRY, YEAR):
     )
     y_pred = pipey.predict(df)[0]
     return f'{y_pred:.0f} bleached?'
+
+fig = px.scatter_geo(coral,
+            lat='LAT',lon='LON',
+            color="BLEACHING_SEVERITY",
+            projection="orthographic",hover_name='LOCATION',
+            animation_frame='YEAR', range_color=(0,4),
+            color_continuous_scale=px.colors.diverging.Portland,
+            labels={'BLEACHING_SEVERITY':'Level of Bleaching'},
+            width=None,height=None).update_layout(
+                  autosize=True,height=800,width=1000
+                  )
 
 aColumn1 = dbc.Col(
     [
@@ -111,17 +122,6 @@ aColumn2 = dbc.Col(
     md=10,
 )
 
-fig = px.scatter_geo(coral,
-            lat='LAT',lon='LON',
-            color="BLEACHING_SEVERITY",
-            projection="orthographic",hover_name='LOCATION',
-            animation_frame='YEAR', range_color=(0,1),
-            color_continuous_scale=px.colors.diverging.Portland,
-            labels={'BLEACHING_SEVERITY':'Currently Bleaching or Not'},
-            width=None,height=None).update_layout(
-                  autosize=True,height=800,width=1000
-                  )
-
 bColumn1 = dbc.Col(
     [
         dcc.Graph(figure=fig),
@@ -130,14 +130,14 @@ bColumn1 = dbc.Col(
 
 cColumn1 = dbc.Col(
     [
-        dcc.Slider(
+        '''dcc.Slider(
             id='YEAR',
             min=2013,
             max=2100,
             step=5,
             value=2013
         ),
-        dcc.Graph(id='SmallWorld',figure=figbot),
+        dcc.Graph(id='SmallWorld',figure=figbot),'''
     ],
 )
 
