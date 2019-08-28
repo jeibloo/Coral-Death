@@ -30,7 +30,7 @@ the content.
 
 ### Here is the data 3D cool thing
 #coral = pd.read_csv("../notebooks/dataset/CoralBleachingClean.csv",index_col='ID')
-coral = pd.read_csv("notebooks/CoralBleachingClean.csv",index_col='ID')
+coral = pd.read_csv("./notebooks/CoralBleachingClean.csv",index_col='ID')
 
 figbot = px.scatter_geo(coral,
             lat='LAT',lon='LON',
