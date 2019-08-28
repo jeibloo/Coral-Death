@@ -106,5 +106,4 @@ venv.bak/
 .mypy_cache/
 
 # Random notebooks
-notebooks/backup.ipynb
-notebooks/Test.ipynb
+notebooks/coral_misc
