@@ -54,5 +54,5 @@ meta_tags=[
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets, meta_tags=meta_tags)
 app.config.suppress_callback_exceptions = True
-app.title = 'Coral Mort' # appears in browser title bar
+app.title = 'Coral Mort 死 Смерть' # appears in browser title bar
 server = app.server
