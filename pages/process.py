@@ -12,7 +12,8 @@ column1 = dbc.Col(
             """
 
             ## Process
-
+            ### Note: this process is for the strange binary classification attempt.
+            ### For the multi-class one it's similar.
             ---
 
             #### Import, Cutting, Wranglin'
@@ -191,6 +192,11 @@ column1 = dbc.Col(
             of our dataset. If I were to posit where I could find it, I believe that
             the general heat content of the ocean would be the biggest indicator. But
             all-in-all this was a interesting experiment to see what I could find out.
+
+            As for the multi-class stuff, the process was pretty samey but with the added
+            bonus of having a few more options for correctness. This whole dataset winded
+            up being very difficult in regards to its lack of data but it was a good
+            exercise to see what I could wring out.
 
             """
         ),

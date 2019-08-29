@@ -13,23 +13,6 @@ import plotly.graph_objs as go
 from collections import Counter
 from app import app
 
-"""
-https://dash-bootstrap-components.opensource.faculty.ai/l/components/layout
-
-Layout in Bootstrap is controlled using the grid system. The Bootstrap grid has
-twelve columns.
-
-There are three main layout components in dash-bootstrap-components: Container,
-Row, and Col.
-
-The layout of your app should be built as a series of rows of columns.
-
-We set md=4 indicating that on a 'medium' sized or larger screen each column
-should take up a third of the width. Since we don't specify behaviour on
-smaller size screens Bootstrap will allow the rows to wrap so as not to squash
-the content.
-"""
-
 ### Here is the data 3D cool thing
 #coral = pd.read_csv("../notebooks/dataset/CoralBleachingClean.csv",index_col='ID')
 coral = pd.read_csv("./CoralBleachingClean.csv",index_col='ID')
@@ -145,10 +128,10 @@ aColumn1 = dbc.Col(
             ## Prediction
             ##### No more shallow coral.
 
-            Coral-Death is an online app that shows the devastating dieout
-            of our vital coral reefs. It's purpose is to try and warn what the data
-            has shown me, that regardless of where you are any coral reefs near you
-            seems likely to perish.
+            Coral-Death is an persistent speculation app that shows the devastating dieout
+            of our vital coral reefs. It's purpose is to try to educate as much
+            as possible with known historical coral data and show how possibly
+            devastated the coral reefs will be five years out.
             """
         ),
         # Here we're going to do the prediction stuff.
@@ -232,28 +215,39 @@ aColumn2 = dbc.Col(
             ## Insights
             ##### What was unusual? Secrets in the data?
 
-            When first discovering this dataset I'd assumed the answer to many
-            of my questions would not be clear cut. After all the dataset did
+            When discovering this dataset I outlined a few questions to myself,
+            and the answers were not clear cut. The dataset did
             not have good values for water temperature near the affected
             reefs, nor did it have important information such as the recovery of
-            the reef in question since the last checkup. But nontheless I had chosen
-            a dataset and intended to stick with it.
+            the reef in question since the last checkup.
 
-            After much thought my original plan of detecting if a coral group
-            was bleaching or not was not going to work. The reason being that since
-            the data was so overwhelming in favour of almost all of the coral dying,
-            my ROC AUC scores were very close to perfect the entire time.
+            My original plan of detecting if a coral group was bleaching or not
+            was not going to work. Why? Because no matter how I twisted and juggled the
+            data my predictive model almost always came out with every coral being bleached
+            (up/downsampling was an option and did give me semi-normal results).
+            My scores (AUC ROC) were close to perfect the entire time, and it felt like
+            there was nothing to predict because the outcome was so inevitable as time passed
+            that the model would be *really* useless.
             Only when I would train my data starting from the early 90's and back
-            is when the Predictions became a hair less than perfect.
+            is when the predictions became a hair less than perfect - 99.8% instead of 99.99%.
+            I decided to up the granularity and predict the level of bleaching instead,
+            but unfortunately my data was lacking *something*. I believe that that *something* may very
+            well be the lack of temperature data. Therefore, I was at a loss of any real
+            predictive power again.
 
-            I was aware of the fact the coral was being recorded could be a sign of bleaching
-            (since the contrast between the bright alive coral and white and lifeless kind would
-            be easy to spot before most knew about this great bleaching) therefore skewing my earlier decade data.
-            But putting that aside, my model seemed to see an obvious trend
-            in this specific dataset that says that the coral is bleaching,
-            and will continue to bleach until proabably most of the shallow water coral that
-            is non-resistant to heat is dead.
+            As for blind spots: as always, the data can be skewed in some way, especially for
+            pre-90s data. (since the contrast between the bright alive coral and white and lifeless kind would
+            be easy to spot before most knew about this great bleaching and not many
+            seemed to have an inclination towards recording coral health pre-90s).
 
+            ---
+
+            As for secrets, from some of the geospatial graphing (look towards the Great Barrier Reef)
+            it seemed that some of the coral that registered a max bleaching (4) in the 90's would
+            then later be completely missing in the 2000's. I never got a clear answer to
+            this but since other coral further from the coast and around some of those spots
+            would go from a 1-3 in the 90's to a 4...worst case scenario is those
+            reefs **may** be just completely dead and not worth recording.
             """
         ),
         dcc.Link(dbc.Button('Learn More about the Process', color='secondary'), href='/process')

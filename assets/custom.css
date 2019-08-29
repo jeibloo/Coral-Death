@@ -26,6 +26,10 @@
   border-right: .1rem solid grey;
   padding-left: .5rem; padding-right: 1rem; padding-bottom: .25rem;
 }
+.name::after {
+  width: 75%;
+  bottom: -10px;
+}
 
 .navbar-brand {
   border-bottom: 1.25rem solid black;
