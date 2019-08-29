@@ -8,7 +8,7 @@ import pandas as pd
 import random
 # Get pipey!
 from joblib import load
-pipey = load('notebooks/pipey.joblib')
+pipey = load('assets/pipey.joblib')
 
 from app import app
 
