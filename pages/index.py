@@ -42,6 +42,12 @@ figbot = px.scatter_geo(coral,
 
 ### APP CALLBACK MUST BE IN BEGINNING BEFORE FUNCTION
 @app.callback(
+    Output('pButton','n_clicks'),
+    [Input(component_id='rButton', component_property='n_clicks')]
+)
+def update(reset):
+    return 0
+@app.callback(
     Output(component_id='output-div', component_property='children'),
     [Input(component_id='coral_quantity', component_property='value'),
      Input(component_id='year_choice', component_property='value'),
@@ -52,16 +58,22 @@ figbot = px.scatter_geo(coral,
      )
 def inputParams(coral, year, lon, lat, region_choice, n_clicks):
 
-    # Unfortunate fuzzing of an already poor model.
-    print("TEST",type(n_clicks),type(lat),type(lon),
+    print("\nTEST:\t",type(n_clicks),type(lat),type(lon),
             type(region_choice),type(coral))
     print(n_clicks)
+
+    # To get the callback stuff to stop complaining
+    if lon is None or lat is None or coral is None:
+        lon = 0
+        lat = 0
+        coral = 0
 
     y_pred_list = []
     # Here is when the button is pressed you activate the real part of the function.
     if n_clicks == 1:
         n_clicks = 0
         for i in range(0, coral):
+            # Unfortunate extreme fuzzing of an already poor model SORRY FOLKS.
             raw = {'LAT':[random.randint(int(lat)-10,int(lat)+10)],
                    'LON':[random.randint(lon-10,lon+10)],
                    'MONTH':[random.randint(1,13)],'YEAR':[year],
@@ -70,8 +82,10 @@ def inputParams(coral, year, lon, lat, region_choice, n_clicks):
 
             special = pd.DataFrame(raw,columns=list(raw.keys()))
             y_pred_list.append(pipey.predict(special)[0])
-        return "{}".format(y_pred_list)
-    return 0
+        ## Test plain return
+        y_pred_list.sort()
+        return y_pred_list
+    return None
 
 fig = px.scatter_geo(coral,
             lat='LAT',lon='LON',
@@ -106,19 +120,25 @@ aColumn1 = dbc.Col(
             dcc.Dropdown(
                 id='region_choice',
                 options=[{'label':"Asia",'value':'Asia'},
-                         {'label':"Australia",'value':'Australia'}],
+                         {'label':"Australia",'value':'Australia'},
+                         {'label':"Pacific",'value':'Pacific'},
+                         {'label':"Middle East",'value':'Middle East'},
+                         {'label':"Africa",'value':'Africa'},
+                         {'label':"Americas",'value':'Americas'}],
             ),
             dcc.Markdown("""
                          ---
-                         ###### Coordinates
+                         ###### Coordinates (will not be limited to region)
                          """),
             dbc.Row([
                 dcc.Input(id='lat',
                           type='number',
-                          placeholder="Latitude"),
+                          placeholder="Latitude\t\t-90  +90",
+                          value=''),
                 dcc.Input(id='lon',
                           type='number',
-                          placeholder="Longitude"),
+                          placeholder="Longitude\t-180 +180",
+                          value=''),
             ], className='coord'),
             dcc.Markdown(
             """
@@ -127,10 +147,10 @@ aColumn1 = dbc.Col(
             """),
             dcc.RadioItems(
                 id='coral_quantity',
-                options=[{'label':'1 Coral','value':1},
-                         {'label':'10 Coral','value':10},
+                options=[{'label':'5 Coral','value':5},
                          {'label':'25 Coral','value':25},
                          {'label':'50 Coral','value':50},
+                         {'label':'100 Coral','value':100},
                          ],
                 labelStyle={'display':'inline-block'},
             ),
@@ -153,11 +173,16 @@ aColumn1 = dbc.Col(
         html.Div([
             dcc.Markdown(
                 """
-                *WARNING: bleaching degree = extreme speculation.*
+                *WARNING: bleaching degree is extreme speculation - many other
+                features in model are fuzzed for ease-of-use. DO NOT USE for
+                real prediction.*
                 """
             )
         ],id='warning-div'),
-        html.Button('Predict',id='pButton',n_clicks=0),
+        dbc.Row([
+            html.Button('Predict',id='pButton',n_clicks=0),
+            html.Button('Reset',id='rButton',n_clicks=0),
+        ]),
         html.Div([
         ],id='output-div'),
     ],

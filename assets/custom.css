@@ -31,10 +31,16 @@ a {
 }
 
 .rc-slider-track {
-  background-color: #C28383;
+  background-color: #4a4a4a;
 }
 .rc-slider-handle {
-  border: solid 2px #C28383;
+  border: solid 4px #4a4a4a;
+}
+.rc-slider-dot-active {
+  border-color: #4a4a4a;
+}
+.rc-slider-rail {
+  background-color: #efefef;
 }
 
 .coord {
@@ -50,6 +56,11 @@ a {
 
 input {
   margin: .35rem;
+}
+
+button {
+  border-style: none;
+  margin-left: 1rem;
 }
 
 /*
