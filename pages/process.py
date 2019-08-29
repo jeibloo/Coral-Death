@@ -10,10 +10,8 @@ column1 = dbc.Col(
     [
         dcc.Markdown(
             """
-
-            ## Process
-            ### Note: this process is for the strange binary classification attempt.
-            ### For the multi-class one it's similar.
+            ##### Note: this process is for the strange binary classification attempt.
+            ##### For the multi-class one it's similar.
             ---
 
             #### Import, Cutting, Wranglin'
@@ -198,6 +196,7 @@ column1 = dbc.Col(
             up being very difficult in regards to its lack of data but it was a good
             exercise to see what I could wring out.
 
+            #### Relevant links: [Github](https://github.com/jeibloo/coral-death) 
             """
         ),
 

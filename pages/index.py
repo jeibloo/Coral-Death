@@ -83,7 +83,7 @@ def inputParams(coral, year, lon, lat, region_choice, n_clicks):
         y_pred_list.sort()
         keyz = list(Counter(y_pred_list).keys())
         valz = list(Counter(y_pred_list).values())
-        return 'Coral Bleach Types: {} \n Amount: {}'.format(keyz,valz)
+        return 'Bleach Type: {} \n Amount Of: {}'.format(keyz,valz)
         ### Graph return
         """
         keyz = list(Counter(y_pred_list).keys())
@@ -203,6 +203,9 @@ aColumn1 = dbc.Col(
             html.Button('Predict',id='pButton',n_clicks=0),
             html.Button('Reset',id='rButton',n_clicks=0),
         ]),
+        html.Div([
+            # nathin'
+        ],id='output-div')
     ],
     md=10,
 )
@@ -269,8 +272,5 @@ layout = html.Div([
         ),
         dbc.Col(aColumn2,width={'size':5,'offset':1})
         ]),
-    dbc.Row([
-        #dcc.Graph(id='death-graph')
-        # Wowza
-    ],id='output-div'),]
+    ]
 )
