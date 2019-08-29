@@ -32,7 +32,8 @@
 }
 
 .navbar-brand {
-  border-bottom: 1.25rem solid black;
+  border-bottom: 2rem solid black;
+  line-height: 3.5rem;
 }
 
 a {
@@ -57,7 +58,8 @@ a {
 }
 
 #output-div {
-  margin-top: 1rem;
+  padding: 0 auto;
+  margin: 0 auto;
 }
 #warning-div {
   margin-top: 3rem;
