@@ -13,7 +13,7 @@
 }
 
 .footer {
-  padding-top: 2rem;
+  padding-top: 4rem;
   margin-bottom: 1rem;
 }
 
@@ -23,9 +23,7 @@
 }
 
 .navbar-brand {
-  text-decoration: none;
-  border-bottom: .5rem solid black;
-  margin-bottom: 1rem;
+  border-bottom: 1.25rem solid black;
 }
 
 a {
@@ -39,9 +37,28 @@ a {
   border: solid 2px #C28383;
 }
 
+.coord {
+  margin-left: 1rem;
+}
+
 #output-div {
+  margin-top: 1rem;
+}
+#warning-div {
   margin-top: 3rem;
 }
+
+input {
+  margin: .35rem;
+}
+
+/*
+#lat {
+  margin-left: 1rem;
+}
+#lon {
+  margin-right: 1rem;
+}*/
 
 #SmallWorld {
   margin: 0;

@@ -2,12 +2,13 @@ import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 import plotly.express as px
 import pandas as pd
+import random
 # Get pipey!
 from joblib import load
-pipey = load('assets/pipey.joblib')
+pipey = load('notebooks/pipey.joblib')
 
 from app import app
 
@@ -39,31 +40,38 @@ figbot = px.scatter_geo(coral,
             projection="natural earth",
             width=None,height=None)
 
-'''
-#### BEGINNING OF REAL
-@app.callback(
-    Output('prediction-content','children'),
-    [Input('COUNTRY','value'), Input('YEAR','value')])
-def predict(COUNTRY, YEAR):
-    df = pd.DataFrame(
-        columns=['COUNTRY','YEAR'],
-        data = [[YEAR,COUNTRY]]
-    )
-    y_pred = pipey.predict(df)[0]
-    return f'{y_pred:.0f} bleached?'
-#### END OF REAL
-'''
-#### BEGINNING OF TEST
 ### APP CALLBACK MUST BE IN BEGINNING BEFORE FUNCTION
 @app.callback(
     Output(component_id='output-div', component_property='children'),
     [Input(component_id='coral_quantity', component_property='value'),
      Input(component_id='year_choice', component_property='value'),
-     Input(component_id='region_choice', component_property='value')]
+     Input(component_id='lon', component_property='value'),
+     Input(component_id='lat', component_property='value'),
+     Input(component_id='region_choice', component_property='value'),
+     Input(component_id='pButton', component_property='n_clicks')]
      )
-def inputTest(coral, year, region):
-    return "Coral Amount: {}\nYear: {}\nRegion: {}".format(coral, year, region)
-#### END OF TEST
+def inputParams(coral, year, lon, lat, region_choice, n_clicks):
+
+    # Unfortunate fuzzing of an already poor model.
+    print("TEST",type(n_clicks),type(lat),type(lon),
+            type(region_choice),type(coral))
+    print(n_clicks)
+
+    y_pred_list = []
+    # Here is when the button is pressed you activate the real part of the function.
+    if n_clicks == 1:
+        n_clicks = 0
+        for i in range(0, coral):
+            raw = {'LAT':[random.randint(int(lat)-10,int(lat)+10)],
+                   'LON':[random.randint(lon-10,lon+10)],
+                   'MONTH':[random.randint(1,13)],'YEAR':[year],
+                   'REGION':[region_choice],'SUBREGION':[random.randint(0,255)],
+                   'COUNTRY':[random.randint(0,200)],'SOURCE':[random.randint(0,300)]}
+
+            special = pd.DataFrame(raw,columns=list(raw.keys()))
+            y_pred_list.append(pipey.predict(special)[0])
+        return "{}".format(y_pred_list)
+    return 0
 
 fig = px.scatter_geo(coral,
             lat='LAT',lon='LON',
@@ -72,7 +80,7 @@ fig = px.scatter_geo(coral,
             animation_frame='YEAR', range_color=(0,4),
             color_continuous_scale=px.colors.diverging.Portland,
             labels={'BLEACHING_SEVERITY':'Level of Bleaching'},
-            #center={'lat':9.934739,'lon':-84.087502}, # Unfortunately this doesn't work right
+            #center={'lat':9.934739,'lon':-84.087502}, # Unfortunately there may be a bug.
             width=None,height=None).update_layout(
                   autosize=True,height=800,width=1000
                   )
@@ -83,7 +91,7 @@ aColumn1 = dbc.Col(
         dcc.Markdown(
             """
 
-            ## Predictions
+            ## Prediction
             ##### No more shallow coral.
 
             Coral-Death is an online app that shows the devastating dieout
@@ -100,6 +108,18 @@ aColumn1 = dbc.Col(
                 options=[{'label':"Asia",'value':'Asia'},
                          {'label':"Australia",'value':'Australia'}],
             ),
+            dcc.Markdown("""
+                         ---
+                         ###### Coordinates
+                         """),
+            dbc.Row([
+                dcc.Input(id='lat',
+                          type='number',
+                          placeholder="Latitude"),
+                dcc.Input(id='lon',
+                          type='number',
+                          placeholder="Longitude"),
+            ], className='coord'),
             dcc.Markdown(
             """
             ---
@@ -107,10 +127,10 @@ aColumn1 = dbc.Col(
             """),
             dcc.RadioItems(
                 id='coral_quantity',
-                options=[{'label':'10 Coral','value':10},
-                         {'label':'100 Coral','value':100},
-                         {'label':'1,000 Coral','value':1000},
-                         {'label':'10,000 Coral','value':10000},
+                options=[{'label':'1 Coral','value':1},
+                         {'label':'10 Coral','value':10},
+                         {'label':'25 Coral','value':25},
+                         {'label':'50 Coral','value':50},
                          ],
                 labelStyle={'display':'inline-block'},
             ),
@@ -122,15 +142,24 @@ aColumn1 = dbc.Col(
             dcc.Slider(
                 id='year_choice',
                 min=2020,
-                max=2050,
+                max=2025,
                 value=2020,
-                marks={'2020':'2020','2030':'2030','2040':'2040','2050':'2050'},
+                marks={2020:'2020',2021:'2021',
+                       2022:'2022',2023:'2023',
+                       2024:'2024',2025:'2025'},
                 step=10,
             )], className='prediction_werk',
         ),
         html.Div([
-
-        ],id='output-div')
+            dcc.Markdown(
+                """
+                *WARNING: bleaching degree = extreme speculation.*
+                """
+            )
+        ],id='warning-div'),
+        html.Button('Predict',id='pButton',n_clicks=0),
+        html.Div([
+        ],id='output-div'),
     ],
     md=10,
 )
