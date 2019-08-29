@@ -173,7 +173,7 @@ column1 = dbc.Col(
         html.Img(src='assets/pdp_lat.png',className='img-fluid'),
         dcc.Markdown(
             """
-            And for a Shapley Value Force plot for individual outcomes.
+            And for a Shapley Value Force plot for three interesting individual outcomes.
             """
         ),
         html.Img(src='assets/shapley0.png',className='img-fluid'),
@@ -191,7 +191,7 @@ column1 = dbc.Col(
             of our dataset. If I were to posit where I could find it, I believe that
             the general heat content of the ocean would be the biggest indicator. But
             all-in-all this was a interesting experiment to see what I could find out.
-            
+
             """
         ),
 

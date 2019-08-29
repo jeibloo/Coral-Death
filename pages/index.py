@@ -56,10 +56,13 @@ def predict(COUNTRY, YEAR):
 #### BEGINNING OF TEST
 ### APP CALLBACK MUST BE IN BEGINNING BEFORE FUNCTION
 @app.callback(
-    Output(component_id='my-div', component_property='children'),
-    [Input(component_id='my-id', component_property='value')])
-def inputTest(input_value):
-    return '{}'.format(input_value)
+    Output(component_id='output-div', component_property='children'),
+    [Input(component_id='coral_quantity', component_property='value'),
+     Input(component_id='year_choice', component_property='value'),
+     Input(component_id='region_choice', component_property='value')]
+     )
+def inputTest(coral, year, region):
+    return "Coral Amount: {}\nYear: {}\nRegion: {}".format(coral, year, region)
 #### END OF TEST
 
 fig = px.scatter_geo(coral,
@@ -91,18 +94,43 @@ aColumn1 = dbc.Col(
         ),
         # Here we're going to do the prediction stuff.
         html.Div([
-            dcc.Input(id='my-id', value='', type='text'),
+            dcc.Markdown("###### Region"),
+            dcc.Dropdown(
+                id='region_choice',
+                options=[{'label':"Asia",'value':'Asia'},
+                         {'label':"Australia",'value':'Australia'}],
+            ),
+            dcc.Markdown(
+            """
+            ---
+            ###### Amount of Coral
+            """),
+            dcc.RadioItems(
+                id='coral_quantity',
+                options=[{'label':'10 Coral','value':10},
+                         {'label':'100 Coral','value':100},
+                         {'label':'1,000 Coral','value':1000},
+                         {'label':'10,000 Coral','value':10000},
+                         ],
+                labelStyle={'display':'inline-block'},
+            ),
+            dcc.Markdown(
+            """
+            ---
+            ###### Future
+            """),
             dcc.Slider(
-                id='YEAR',
-                min=2013,
-                max=2100,
-                step=5,
-                value=2013),
-            ], className='jumanji',
+                id='year_choice',
+                min=2020,
+                max=2050,
+                value=2020,
+                marks={'2020':'2020','2030':'2030','2040':'2040','2050':'2050'},
+                step=10,
+            )], className='prediction_werk',
         ),
         html.Div([
 
-        ],id='my-div')
+        ],id='output-div')
     ],
     md=10,
 )
@@ -150,26 +178,6 @@ bColumn1 = dbc.Col(
         dcc.Graph(figure=fig),
     ],
 )
-
-"""
-html.Div(
-    dcc.Slider(
-    id="year",
-    min=1952,
-    max=2002,
-    step=5,
-    value=1952,
-    className='mb-10',
-    updatemode='drag',
-),id='slider-output-container')
-"""
-"""
-@app.callback(
-    dash.dependencies.Output('year', 'children'),
-    [dash.dependencies.Input('year', 'value')])
-def update_output(value):
-    return html.Div("{}".format(value), id='output-text')
-    """
 
 layout = html.Div([
     dbc.Row([bColumn1]),

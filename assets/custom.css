@@ -39,6 +39,10 @@ a {
   border: solid 2px #C28383;
 }
 
+#output-div {
+  margin-top: 3rem;
+}
+
 #SmallWorld {
   margin: 0;
 }
