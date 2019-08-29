@@ -6,7 +6,7 @@ Are all the coral reefs getting bleached? Or is it just a few? If we were to pre
 
 Coral-Death is an persistent speculation app that shows the devastating dieout of our vital coral reefs. It's purpose is to try to educate as much as possible with known historical coral data and show how possibly devastated the coral reefs will be five years out.
 
-![bad globe]()
+![bad globe](https://github.com/jeibloo/coral-death/blob/master/assets/globe.png)
 
 ---
 
