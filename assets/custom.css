@@ -7,6 +7,11 @@
 .js-plotly-plot {
   margin-left: 6rem;
 }
+#death-graphic {
+  margin-left: 0rem;
+  justify-content: center;
+  margin: 0 auto;
+}
 
 .lead {
   font-size: 1.5rem;
@@ -81,7 +86,9 @@ button {
   margin-bottom: 5rem;
 }
 
-#output-text {
+#output-text, #output-div {
+  padding-right: 3rem;
+  padding-left: 10rem;
   padding-top: 1rem;
   text-align: center;
 }

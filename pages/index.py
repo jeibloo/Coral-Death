@@ -9,7 +9,8 @@ import random
 # Get pipey!
 from joblib import load
 pipey = load('assets/pipey.joblib')
-
+import plotly.graph_objs as go
+from collections import Counter
 from app import app
 
 """
@@ -48,7 +49,8 @@ figbot = px.scatter_geo(coral,
 def update(reset):
     return 0
 @app.callback(
-    Output(component_id='output-div', component_property='children'),
+    #Output(component_id='death-graph', component_property='figure'), # Shelve graph for now
+    Output(component_id='output-div', component_property='children'), # For text
     [Input(component_id='coral_quantity', component_property='value'),
      Input(component_id='year_choice', component_property='value'),
      Input(component_id='lon', component_property='value'),
@@ -67,11 +69,20 @@ def inputParams(coral, year, lon, lat, region_choice, n_clicks):
         lon = 0
         lat = 0
         coral = 0
+    # DON'T BE SNEAKY !!!
+    elif not isinstance(lon, int):
+        lon = 0
+    elif not isinstance(lat, int):
+        lat = 0
+    elif (lon <= -200 or lon >= 200) or (lat <= -200 or lat <= 200):
+         lon = 0
+         lat = 0
 
     y_pred_list = []
     # Here is when the button is pressed you activate the real part of the function.
     if n_clicks == 1:
         n_clicks = 0
+        wait_dot = ''
         for i in range(0, coral):
             # Unfortunate extreme fuzzing of an already poor model SORRY FOLKS.
             raw = {'LAT':[random.randint(int(lat)-10,int(lat)+10)],
@@ -80,11 +91,37 @@ def inputParams(coral, year, lon, lat, region_choice, n_clicks):
                    'REGION':[region_choice],'SUBREGION':[random.randint(0,255)],
                    'COUNTRY':[random.randint(0,200)],'SOURCE':[random.randint(0,300)]}
 
+            ### Make the data frame to predict, I'm so sorry for making a new df each time...
             special = pd.DataFrame(raw,columns=list(raw.keys()))
             y_pred_list.append(pipey.predict(special)[0])
-        ## Test plain return
+            wait_dot+='.'
+            print(wait_dot)
+        ### Test plain return
         y_pred_list.sort()
-        return y_pred_list
+        keyz = list(Counter(y_pred_list).keys())
+        valz = list(Counter(y_pred_list).values())
+        return 'Coral Bleach Types: {} \n Amount: {}'.format(keyz,valz)
+        ### Graph return
+        """
+        keyz = list(Counter(y_pred_list).keys())
+        valz = list(Counter(y_pred_list).values())
+        print(keyz,valz)
+        figure = {
+            'data':[
+                go.Bar(
+                    x = keyz,
+                    y = valz,
+                    name = 'Bleaching'
+                    )
+            ],
+            'layout': go.Layout(
+                title= 'Bleaching Level',
+                #yaxis = 'Amount of Coral',
+            )
+        }
+        return figure
+        """
+
     return None
 
 fig = px.scatter_geo(coral,
@@ -183,8 +220,6 @@ aColumn1 = dbc.Col(
             html.Button('Predict',id='pButton',n_clicks=0),
             html.Button('Reset',id='rButton',n_clicks=0),
         ]),
-        html.Div([
-        ],id='output-div'),
     ],
     md=10,
 )
@@ -240,5 +275,8 @@ layout = html.Div([
         ),
         dbc.Col(aColumn2,width={'size':5,'offset':1})
         ]),
-    ]
+    dbc.Row([
+        #dcc.Graph(id='death-graph')
+        # Wowza
+    ],id='output-div'),]
 )
