@@ -7,7 +7,7 @@
 .js-plotly-plot {
   margin-left: 6rem;
 }
-#death-graphic {
+#output-graph{
   margin-left: 0rem;
   justify-content: center;
   margin: 0 auto;
@@ -58,10 +58,6 @@ a {
   margin-left: 1rem;
 }
 
-#output-div {
-  padding: 0 auto;
-  margin: 0 auto;
-}
 #warning-div {
   margin-top: 3rem;
 }
@@ -71,7 +67,8 @@ input {
 }
 
 button {
-  border-style: none;
+  border-style: solid;
+  border-color: #a2a2a2;
   margin-left: 1rem;
 }
 
@@ -93,9 +90,11 @@ button {
   margin-bottom: 5rem;
 }
 
-#output-text, #output-div {
-  padding-right: 3rem;
-  padding-left: 10rem;
-  padding-top: 1rem;
-  text-align: center;
+#output-div {
+  border: .15rem solid grey;
+  border-radius: 2px;
+  padding-left: 2rem;
+  margin-top: 3rem;
+  margin-right: 5rem;
+  text-align: left;
 }

@@ -32,8 +32,9 @@ figbot = px.scatter_geo(coral,
 def update(reset):
     return 0
 @app.callback(
-    #Output(component_id='death-graph', component_property='figure'), # Shelve graph for now
-    Output(component_id='output-div', component_property='children'), # For text
+    #Output(component_id='output-graph', component_property='figure'), # Shelve graph for now
+    [Output(component_id='output-x', component_property='children'), # For text
+    Output(component_id='output-y', component_property='children')], # For text
     [Input(component_id='coral_quantity', component_property='value'),
      Input(component_id='year_choice', component_property='value'),
      Input(component_id='lon', component_property='value'),
@@ -43,15 +44,12 @@ def update(reset):
      )
 def inputParams(coral, year, lon, lat, region_choice, n_clicks):
 
-    print("\nTEST:\t",type(n_clicks),type(lat),type(lon),
-            type(region_choice),type(coral))
-    print(n_clicks)
-
     # To get the callback stuff to stop complaining
-    if lon is None or lat is None or coral is None:
+    if lon is None or lat is None or coral is None or region_choice is None:
         lon = 0
         lat = 0
         coral = 0
+        region_choice = 0
     # DON'T BE SNEAKY !!!
     elif not isinstance(lon, int):
         lon = 0
@@ -83,29 +81,9 @@ def inputParams(coral, year, lon, lat, region_choice, n_clicks):
         y_pred_list.sort()
         keyz = list(Counter(y_pred_list).keys())
         valz = list(Counter(y_pred_list).values())
-        return 'Bleach Type: {} \n Amount Of: {}'.format(keyz,valz)
-        ### Graph return
-        """
-        keyz = list(Counter(y_pred_list).keys())
-        valz = list(Counter(y_pred_list).values())
-        print(keyz,valz)
-        figure = {
-            'data':[
-                go.Bar(
-                    x = keyz,
-                    y = valz,
-                    name = 'Bleaching'
-                    )
-            ],
-            'layout': go.Layout(
-                title= 'Bleaching Level',
-                #yaxis = 'Amount of Coral',
-            )
-        }
-        return figure
-        """
+        return 'Bleach Type -{}'.format(keyz),'\nQuantity Of -{}'.format(valz)
 
-    return None
+    return 'Bleach Type -{}'.format('NEEDS INPUT'),'\nQuantity Of -{}'.format('NEEDS INPUT')
 
 fig = px.scatter_geo(coral,
             lat='LAT',lon='LON',
@@ -128,10 +106,10 @@ aColumn1 = dbc.Col(
             ## Prediction
             ##### No more shallow coral.
 
-            Coral-Death is an persistent speculation app that shows the devastating dieout
+            Coral-Death is an persistent speculation app that shows the devastating die-out
             of our vital coral reefs. It's purpose is to try to educate as much
-            as possible with known historical coral data and show how possibly
-            devastated the coral reefs will be five years out.
+            as possible with known historical coral data and show where the coral reefs
+            might be five years.
             """
         ),
         # Here we're going to do the prediction stuff.
@@ -203,8 +181,13 @@ aColumn1 = dbc.Col(
             html.Button('Predict',id='pButton',n_clicks=0),
             html.Button('Reset',id='rButton',n_clicks=0),
         ]),
+        ### Here's output, but god it's so hard to figure out.
         html.Div([
             # nathin'
+            html.Div([
+            ], id='output-x'),
+            html.Div([
+            ], id='output-y'),
         ],id='output-div')
     ],
     md=10,
@@ -250,7 +233,7 @@ aColumn2 = dbc.Col(
             then later be completely missing in the 2000's. I never got a clear answer to
             this but since other coral further from the coast and around some of those spots
             would go from a 1-3 in the 90's to a 4...worst case scenario is those
-            reefs **may** be just completely dead and not worth recording.
+            reefs *may* be just completely dead and not worth recording.
             """
         ),
         dcc.Link(dbc.Button('Learn More about the Process', color='secondary'), href='/process')
