@@ -91,10 +91,8 @@ button {
 }
 
 #output-div {
-  border: .15rem solid grey;
-  border-radius: 2px;
-  padding-left: 2rem;
-  margin-top: 3rem;
-  margin-right: 5rem;
-  text-align: left;
+  margin-top: 1rem;
+}
+#output-graph {
+  flex-wrap: nowrap;
 }

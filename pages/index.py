@@ -32,9 +32,9 @@ figbot = px.scatter_geo(coral,
 def update(reset):
     return 0
 @app.callback(
-    #Output(component_id='output-graph', component_property='figure'), # Shelve graph for now
-    [Output(component_id='output-x', component_property='children'), # For text
-    Output(component_id='output-y', component_property='children')], # For text
+    Output(component_id='output-graph', component_property='figure'), # Shelve graph for now
+    #[Output(component_id='output-x', component_property='children'), # For text
+    #Output(component_id='output-y', component_property='children')], # For text
     [Input(component_id='coral_quantity', component_property='value'),
      Input(component_id='year_choice', component_property='value'),
      Input(component_id='lon', component_property='value'),
@@ -81,9 +81,29 @@ def inputParams(coral, year, lon, lat, region_choice, n_clicks):
         y_pred_list.sort()
         keyz = list(Counter(y_pred_list).keys())
         valz = list(Counter(y_pred_list).values())
-        return 'Bleach Type -{}'.format(keyz),'\nQuantity Of -{}'.format(valz)
+        #return '{} | Bleaching Level'.format(keyz),'\n{} | Quantity'.format(valz)
+        return {
+            'data': [{
+                'type': 'bar',
+                'x': keyz,
+                'y': valz
+            }],
+            'layout': {
+                'title': 'Bleaching'
+            }
+        }
 
-    return 'Bleach Type -{}'.format('NEEDS INPUT'),'\nQuantity Of -{}'.format('NEEDS INPUT')
+    #return '{} | Bleaching Level'.format('NEEDS INPUT'),'\n{} | Quantity'.format('NEEDS INPUT')
+    return {
+        'data': [{
+            'type': 'bar',
+            'x': [0,1,2,3,4],
+            'y': [0]
+        }],
+        'layout': {
+            'title': 'Bleaching'
+        }
+    }
 
 fig = px.scatter_geo(coral,
             lat='LAT',lon='LON',
@@ -184,10 +204,14 @@ aColumn1 = dbc.Col(
         ### Here's output, but god it's so hard to figure out.
         html.Div([
             # nathin'
-            html.Div([
+            # Just the text
+            html.P([
             ], id='output-x'),
-            html.Div([
+            html.P([
             ], id='output-y'),
+            dcc.Graph(
+                id='output-graph',
+            )
         ],id='output-div')
     ],
     md=10,
