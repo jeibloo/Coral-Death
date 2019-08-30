@@ -1,6 +1,9 @@
 .navbar-brand {
   font-size: 4rem;
 }
+.navbar {
+  margin-top: 2rem;
+}
 .nav-link {
   font-size: 1.25rem;
 }
@@ -32,7 +35,7 @@
 }
 
 .navbar-brand {
-  border-bottom: 2rem solid black;
+  border-bottom: 1.5rem solid black;
   line-height: 3.5rem;
   margin-bottom: 1rem;
 }
