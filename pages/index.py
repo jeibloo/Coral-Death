@@ -85,11 +85,24 @@ def inputParams(coral, year, lon, lat, region_choice, n_clicks):
         return {
             'data': [{
                 'type': 'bar',
-                'x': keyz,
-                'y': valz
+                'x': valz,
+                'y': keyz,
+                'orientation': 'h',
+                'marker': {
+                    'color': '#ea8faa',
+                    'line': {
+                        'width': '2.5'
+                    }
+                }
             }],
             'layout': {
-                'title': 'Bleaching'
+                'title': 'Prediction Output',
+                'xaxis':{
+                    'title':'# of Coral'
+                },
+                'yaxis':{
+                    'title':'Degree of Bleaching'
+                },
             }
         }
 
@@ -97,11 +110,12 @@ def inputParams(coral, year, lon, lat, region_choice, n_clicks):
     return {
         'data': [{
             'type': 'bar',
+            'orientation': 'h',
             'x': [0,1,2,3,4],
             'y': [0]
         }],
         'layout': {
-            'title': 'Bleaching'
+            'title': 'Prediction Output',
         }
     }
 
