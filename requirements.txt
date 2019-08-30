@@ -1,0 +1,7 @@
+dash_bootstrap_components==0.7.0
+pandas==0.25.1
+dash_html_components==1.0.0
+dash_core_components==1.1.1
+dash==1.1.1
+joblib==0.13.2
+plotly==4.1.0
